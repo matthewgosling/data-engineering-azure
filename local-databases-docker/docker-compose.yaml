@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-container
+    environment:
+      MONGO_INITDB_DATABASE: demo
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Pass@word
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb:/data/db
+      - ./mongoconfig:/data/configdb
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver-container
+    environment:
+      MSSQL_PID: Developer
+      # Default UserID is "sa"
+      SA_PASSWORD: yourStrong(!)Password
+      ACCEPT_EULA: Y 
+    ports:
+      - 1433:1433
+    volumes:
+      - ./sqlbackup:/sqlbackup
+      - ./sqldata:/sqldata
+      - ./sqllog:/sqllog
+      - ./sqlsystem:/sqlsystem
+
+volumes:
+  mongodb:
+  mongoconfig:
+  sqlbackup:
+  sqldata:
+  sqllog:
+  sqlsystem:
