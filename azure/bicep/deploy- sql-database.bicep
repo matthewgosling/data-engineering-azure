@@ -1,10 +1,8 @@
 param serverName string = uniqueString('sql', resourceGroup().id)
-param sqlDBName string = 'SampleDB'
+param sqlDBName string = 'pocDB'
 param location string = resourceGroup().location
-param administratorLogin string
-
-@secure()
-param administratorLoginPassword string
+param administratorLogin string = '${{ secrets.SQL_USERID }}'
+param administratorLoginPassword string = '${{ secrets.SQL_PASSWORD }}'
 
 resource server 'Microsoft.Sql/servers@2021-02-01-preview' = {
   name: serverName
