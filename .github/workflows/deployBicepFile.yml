@@ -19,5 +19,5 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./azure/bicep/deploy-sql-database.bicep
+        template: /home/runner/work/data-engineering-azure/azure/bicep/deploy-sql-database.bicep
         parameters: storagePrefix=poc
