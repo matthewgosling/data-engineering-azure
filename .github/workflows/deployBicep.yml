@@ -5,7 +5,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      ResourceGroupName: poc
+      ResourceGroupName: ProofOfConcept
       ResourceGroupLocation: "westeurope"
     steps:
       # Checkout code
