@@ -1,7 +1,6 @@
 @minLength(3)
 @maxLength(24)
-@description('Provide a name for the storage account. Use only lower case letters and numbers. The name must be unique across Azure.')
-param storageName string
+param storagePrefix string
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   name: 'examplevnet'
@@ -29,8 +28,10 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   }
 }
 
+var uniqueStorageName = '${storagePrefix}${uniqueString(resourceGroup().id)}'
+
 resource exampleStorage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
-  name: storageName
+  name: uniqueStorageName
   location: 'westeurope'
   sku: {
     name: 'Standard_LRS'
