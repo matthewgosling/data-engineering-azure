@@ -1,16 +1,10 @@
-@minLength(3)
-@maxLength(11)
-param storagePrefix string
+// deploy a resource group
+resource pocRg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: 'poc'
+  location: 'West Europe'
+}
 
-param location string = resourceGroup().location
-
-var uniqueStorageName = '${storagePrefix}${uniqueString(resourceGroup().id)}'
-
-resource exampleStorage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
-  name: uniqueStorageName
-  location: location
-  sku: {
-    name: 'Standard_LRS'
-  }
-  kind: 'StorageV2'
+// deploy storage to the newly-created resource group
+module myStorage './storage.bicep' = {
+  name: 'myStorage'
 }
