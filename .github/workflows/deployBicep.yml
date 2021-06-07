@@ -1,22 +1,31 @@
 on: [push]
 name: Deploy Azure bicep
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      ResourceGroupName: poc
+      ResourceGroupLocation: "westeurope"
     steps:
-
       # Checkout code
     - uses: actions/checkout@main
-
       # Log into Azure
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Deploy Bicep file
-    - name: deploy
-      uses: azure/arm-deploy@v1
+    - uses: Azure/CLI@v1
       with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
+        inlineScript: |
+          #!/bin/bash
+          if $(az group exists --name ${{ env.ResourceGroupName }}) ; then
+            echo "Azure resource group already exists, skipping creation..."
+          else
+            az group create --name ${{ env.ResourceGroupName }} --location ${{ env.ResourceGroupLocation }}
+            echo "Azure resource group created"
+          fi
+      # Deploy Bicep file
+    - uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: ${{ env.ResourceGroupName }}
         template: ./main.bicep
