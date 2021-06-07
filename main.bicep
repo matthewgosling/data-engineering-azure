@@ -1,7 +1,3 @@
-@minLength(3)
-@maxLength(24)
-param storagePrefix string
-
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   name: 'examplevnet'
   location: resourceGroup().location
@@ -28,10 +24,8 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   }
 }
 
-var uniqueStorageName = '${storagePrefix}${uniqueString(resourceGroup().id)}'
-
 resource exampleStorage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
-  name: uniqueStorageName
+  name: 'matnewstgetoday'
   location: 'westeurope'
   sku: {
     name: 'Standard_LRS'
