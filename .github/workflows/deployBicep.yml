@@ -1,5 +1,6 @@
+name: azure-deployment
+
 on: [push]
-name: Deploy Azure bicep
 
 jobs:
   build-and-deploy:

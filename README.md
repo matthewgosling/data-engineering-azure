@@ -1,6 +1,4 @@
 # Azure Data Engineering Proof of Concept Project
-<<<<<<< HEAD
-This is where documentation will be added.............
-=======
-This is where documentation will be added.............
->>>>>>> d73133afce25f3b59898595ffa8acbf4d9c64207
+
+This repository is a store of code and configuration examples for a Data Engineering Proof of Concept project. The intention is to showcase Microsoft and Azure tools where feasible.
+
